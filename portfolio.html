@@ -210,6 +210,22 @@
 
         <button type="submit" class="submit-btn">提交</button>
     </form>
+<script>
+    // 取得表單元件
+    const contactForm = document.querySelector('.contact-form');
+
+    // 監聽表單提交事件
+    contactForm.addEventListener('submit', function(event) {
+        // 阻止表單預設的跳頁/重整行為
+        event.preventDefault();
+
+        // 跳出提示視窗
+        alert("已填寫成功");
+
+        // （可選）清空表單輸入內容
+        this.reset();
+    });
+</script>
 
 </body>
 </html>
