@@ -1,0 +1,23 @@
+.siteShell {
+  position: relative;
+  min-height: 100svh;
+  isolation: isolate;
+}
+
+.siteShell::before {
+  position: fixed;
+  inset: auto -15vw 8vh auto;
+  z-index: -1;
+  width: min(55vw, 46rem);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--color-accent) 9%, transparent), transparent 68%);
+  content: '';
+  filter: blur(1.25rem);
+  pointer-events: none;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+}

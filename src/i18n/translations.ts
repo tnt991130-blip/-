@@ -1,0 +1,126 @@
+import type { Locale, Translation } from '../types/translation'
+
+export const DEFAULT_LOCALE: Locale = 'zh-TW'
+
+export const translations = {
+  'zh-TW': {
+    common: {
+      skipToContent: '跳至主要內容',
+      browseWebsite: '瀏覽網站',
+      openMenu: '開啟選單',
+      closeMenu: '關閉選單',
+      switchToLight: '切換為淺色模式',
+      switchToDark: '切換為深色模式',
+      switchToEnglish: 'Switch to English',
+      switchToChinese: '切換為繁體中文',
+    },
+    navigation: {
+      home: '首頁',
+      about: '關於我',
+      projects: '作品',
+      contact: '聯絡',
+    },
+    hero: {
+      eyebrow: 'PORTFOLIO / 2026',
+      primaryAction: '查看我的作品',
+      secondaryAction: '聯絡我',
+    },
+    about: {
+      eyebrow: 'ABOUT',
+      title: '將想法轉化為能被使用的網站與工具。',
+      body: '我是王宥崴，一名對程式充滿熱情的高中生。我喜歡把想法轉化為能實際操作的網站與工具，並在每次開發中持續學習設計、互動實作與問題解決。',
+    },
+    projects: {
+      eyebrow: 'SELECTED WORK',
+      title: '作品',
+      description: '三個從構想到完成的網頁作品。',
+      previewLabel: '瀏覽網站',
+    },
+    contact: {
+      eyebrow: 'CONTACT',
+      title: '一起聊聊你的想法。',
+      description: '填寫表單後，將開啟你的預設郵件應用程式。',
+      nameLabel: '姓名',
+      emailLabel: 'Email',
+      messageLabel: '留言',
+      namePlaceholder: '請輸入你的姓名',
+      emailPlaceholder: 'name@example.com',
+      messagePlaceholder: '想說些什麼？',
+      submit: '開啟郵件應用程式',
+      openingMail: '正在開啟郵件應用程式。',
+      mailClientHelp: '若沒有開啟，請確認已設定預設郵件程式。',
+    },
+    footer: {
+      backToTop: '返回頂部',
+      copyright: 'All rights reserved.',
+    },
+    validation: {
+      required: '此欄位為必填。',
+      nameTooShort: '姓名至少需要 2 個字元。',
+      nameTooLong: '姓名不可超過 80 個字元。',
+      invalidEmail: '請輸入有效的 Email 格式。',
+      messageTooShort: '留言至少需要 10 個字元。',
+      messageTooLong: '留言不可超過 1,000 個字元。',
+    },
+  },
+  en: {
+    common: {
+      skipToContent: 'Skip to main content',
+      browseWebsite: 'Visit website',
+      openMenu: 'Open menu',
+      closeMenu: 'Close menu',
+      switchToLight: 'Switch to light mode',
+      switchToDark: 'Switch to dark mode',
+      switchToEnglish: 'Switch to English',
+      switchToChinese: '切換為繁體中文',
+    },
+    navigation: {
+      home: 'Home',
+      about: 'About',
+      projects: 'Projects',
+      contact: 'Contact',
+    },
+    hero: {
+      eyebrow: 'PORTFOLIO / 2026',
+      primaryAction: 'View my work',
+      secondaryAction: 'Contact me',
+    },
+    about: {
+      eyebrow: 'ABOUT',
+      title: 'Turning ideas into websites and tools people can use.',
+      body: 'I’m Yu-Wei Wang, a high school student passionate about programming. I enjoy turning ideas into practical websites and tools while continuously learning through each project.',
+    },
+    projects: {
+      eyebrow: 'SELECTED WORK',
+      title: 'Projects',
+      description: 'Three web projects, from concept to completion.',
+      previewLabel: 'Visit website',
+    },
+    contact: {
+      eyebrow: 'CONTACT',
+      title: 'Let’s talk about your idea.',
+      description: 'Submitting the form will open your default mail application.',
+      nameLabel: 'Name',
+      emailLabel: 'Email',
+      messageLabel: 'Message',
+      namePlaceholder: 'Enter your name',
+      emailPlaceholder: 'name@example.com',
+      messagePlaceholder: 'What would you like to say?',
+      submit: 'Open mail application',
+      openingMail: 'Opening your mail application.',
+      mailClientHelp: 'If it does not open, check that a default mail application is set.',
+    },
+    footer: {
+      backToTop: 'Back to top',
+      copyright: 'All rights reserved.',
+    },
+    validation: {
+      required: 'This field is required.',
+      nameTooShort: 'Your name must contain at least 2 characters.',
+      nameTooLong: 'Your name cannot exceed 80 characters.',
+      invalidEmail: 'Enter a valid email address.',
+      messageTooShort: 'Your message must contain at least 10 characters.',
+      messageTooLong: 'Your message cannot exceed 1,000 characters.',
+    },
+  },
+} as const satisfies Record<Locale, Translation>

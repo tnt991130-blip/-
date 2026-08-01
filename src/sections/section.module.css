@@ -1,0 +1,23 @@
+.section {
+  position: relative;
+  width: min(100% - 2rem, var(--container-width));
+  margin-inline: auto;
+  padding-block: var(--space-24);
+  scroll-margin-top: 6.5rem;
+}
+
+.section + .section::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-border-subtle) 12%, var(--color-border-subtle) 88%, transparent);
+  content: '';
+}
+
+@media (max-width: 48rem) {
+  .section {
+    padding-block: var(--space-14);
+  }
+}
