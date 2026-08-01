@@ -20,12 +20,14 @@
             color: #333;
             overflow-x: hidden;
             position: relative;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         h1 {
             text-align: center;
             color: #222;
             margin-bottom: 30px;
+            transition: color 0.3s ease;
         }
 
         h2.section-title {
@@ -33,6 +35,7 @@
             margin-bottom: 20px;
             color: #444;
             text-align: center;
+            transition: color 0.3s ease;
         }
 
         .grid-container {
@@ -56,7 +59,7 @@
             padding: 30px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
             text-align: center;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease, color 0.3s ease;
         }
 
         .grid-item:hover {
@@ -68,15 +71,17 @@
             margin-top: 0;
             color: #333;
             font-size: 20px;
+            transition: color 0.3s ease;
         }
 
         .grid-item p {
             color: #666;
             line-height: 1.6;
             margin-bottom: 0;
+            transition: color 0.3s ease;
         }
 
-        /* ===== 大頭貼專用 CSS ===== */
+        /* ===== 正方形大頭貼 CSS ===== */
          .avatar-img {
             width: 120px;
             height: 120px;
@@ -88,6 +93,24 @@
             background-color: #eee;
         }
 
+
+        /* ===== 作品圖片 CSS ===== */
+        .project-img {
+            width: 100%;          /* 寬度自動填滿卡片 */
+            height: 180px;        /* 修改這個數字可以改變圖片高度 */
+            object-fit: cover;    /* cover: 滿版不變形裁切 | contain: 顯示完整圖片不裁切 */
+            border-radius: 8px;   /* 圖片圓角 */
+            margin: 12px 0;
+            background-color: #eee;
+            display: block;
+        }
+
+        .project-input {
+            width: 100%;
+            margin-bottom: 12px;
+            font-size: 13px;
+        }
+
         .contact-form {
             width: 100%;
             max-width: 600px;
@@ -96,6 +119,7 @@
             background: #fff;
             border-radius: 12px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
         }
 
         .form-group {
@@ -107,6 +131,7 @@
             margin-bottom: 8px;
             font-weight: bold;
             color: #555;
+            transition: color 0.3s ease;
         }
 
         .form-group input,
@@ -117,7 +142,7 @@
             border-radius: 6px;
             font-size: 15px;
             outline: none;
-            transition: border-color 0.2s ease;
+            transition: border-color 0.2s ease, background-color 0.3s ease, color 0.3s ease;
         }
 
         .form-group input:focus,
@@ -179,6 +204,70 @@
             }
         }
 
+        /* ===== 切換黑/白模式按鈕與深色主題樣式 ===== */
+        .theme-toggle-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            background-color: #333;
+            color: #fff;
+            font-size: 22px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+            z-index: 10000; /* 高於彈幕確保永遠能點擊 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s ease, background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .theme-toggle-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* 深色模式 (.dark-mode) 的樣式定義 */
+        body.dark-mode {
+            background-color: #121212;
+            color: #f0f0f0;
+        }
+
+        body.dark-mode h1,
+        body.dark-mode h2.section-title {
+            color: #ffffff;
+        }
+
+        body.dark-mode .grid-item,
+        body.dark-mode .contact-form {
+            background-color: #1e1e1e;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        body.dark-mode .grid-item h2 {
+            color: #ffffff;
+        }
+
+        body.dark-mode .grid-item p,
+        body.dark-mode .form-group label {
+            color: #bbbbbb;
+        }
+
+        body.dark-mode .form-group input,
+        body.dark-mode .form-group textarea,
+        body.dark-mode .project-input {
+            background-color: #2a2a2a;
+            color: #ffffff;
+            border-color: #444;
+        }
+
+        body.dark-mode .theme-toggle-btn {
+            background-color: #f5f5f5;
+            color: #121212;
+        }
+
         @media (max-width: 768px) {
             .grid-3-col {
                 grid-template-columns: repeat(2, 1fr);
@@ -203,6 +292,9 @@
 </head>
 <body>
 
+    <!-- 黑/白模式切換圓形按鈕 -->
+    <button id="themeToggleBtn" class="theme-toggle-btn" title="切換黑/白模式">🌙</button>
+
     <!-- 彈幕容器 -->
     <div class="danmaku-container" id="danmakuContainer"></div>
 
@@ -217,9 +309,7 @@
 
         <div class="grid-item">
             <h2>大頭貼</h2>
-            <!-- 預設預覽圖片 (SVG 占位圖) -->
             <img id="avatarPreview" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'><rect width='100%' height='100%' fill='%23e0e0e0'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' fill='%23888888' font-size='14'>尚未上傳圖片</text></svg>" alt="大頭貼預覽" class="avatar-img">
-            <!-- 檔案選擇按鈕 -->
             <input type="file" id="avatarInput" accept="image/*">
         </div>
     </div>
@@ -227,16 +317,27 @@
     <!-- 作品區 -->
     <h2 class="section-title">作品區</h2>
     <div class="grid-container grid-3-col">
+        <!-- 作品卡片 1 -->
         <div class="grid-item">
             <h2 contenteditable="true">作品標題 1</h2>
+            <img class="project-img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='180' viewBox='0 0 300 180'><rect width='100%' height='100%' fill='%23e0e0e0'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' fill='%23888888' font-size='14'>點擊下方按鈕上傳作品圖</text></svg>" alt="作品預覽">
+            <input type="file" class="project-input" accept="image/*">
             <p contenteditable="true">請在此輸入作品內容 1。</p>
         </div>
+
+        <!-- 作品卡片 2 -->
         <div class="grid-item">
             <h2 contenteditable="true">作品標題 2</h2>
+            <img class="project-img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='180' viewBox='0 0 300 180'><rect width='100%' height='100%' fill='%23e0e0e0'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' fill='%23888888' font-size='14'>點擊下方按鈕上傳作品圖</text></svg>" alt="作品預覽">
+            <input type="file" class="project-input" accept="image/*">
             <p contenteditable="true">請在此輸入作品內容 2。</p>
         </div>
+
+        <!-- 作品卡片 3 -->
         <div class="grid-item">
             <h2 contenteditable="true">作品標題 3</h2>
+            <img class="project-img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='180' viewBox='0 0 300 180'><rect width='100%' height='100%' fill='%23e0e0e0'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' fill='%23888888' font-size='14'>點擊下方按鈕上傳作品圖</text></svg>" alt="作品預覽">
+            <input type="file" class="project-input" accept="image/*">
             <p contenteditable="true">請在此輸入作品內容 3。</p>
         </div>
     </div>
@@ -263,6 +364,17 @@
     </form>
 
     <script>
+        // 黑/白主題切換邏輯
+        const themeToggleBtn = document.getElementById('themeToggleBtn');
+        themeToggleBtn.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            if (document.body.classList.contains('dark-mode')) {
+                themeToggleBtn.innerText = '☀️';
+            } else {
+                themeToggleBtn.innerText = '🌙';
+            }
+        });
+
         // 表單送出事件
         const contactForm = document.querySelector('.contact-form');
         contactForm.addEventListener('submit', function(event) {
@@ -305,7 +417,7 @@
         setInterval(createDanmaku, 2500);
         createDanmaku();
 
-        // 大頭貼上傳預覽邏輯 (務必放在 <script> 標籤內)
+        // 大頭貼上傳預覽邏輯
         const avatarInput = document.getElementById('avatarInput');
         const avatarPreview = document.getElementById('avatarPreview');
 
@@ -318,6 +430,23 @@
                 };
                 reader.readAsDataURL(file);
             }
+        });
+
+        // 作品區上傳預覽邏輯 (自動處理多個作品上傳)
+        const projectInputs = document.querySelectorAll('.project-input');
+
+        projectInputs.forEach(input => {
+            input.addEventListener('change', function(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const img = this.parentElement.querySelector('.project-img');
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        img.src = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
         });
     </script>
 </body>
