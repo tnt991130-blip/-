@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>我的網站</title>
+<style>
+  .grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 400px;
+    margin: 2rem auto;
+    padding: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background: #f9f9f9;
+  }
+  .box {
+    padding: 1rem;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    background: #fff;
+  }
+  .box h2 {
+    margin-top: 0;
+    font-size: 1.1rem;
+  }
+  .box input,
+  .box textarea {
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  .box textarea {
+    min-height: 80px;
+    resize: vertical;
+  }
+  .preview-img {
+    max-width: 100%;
+    max-height: 200px;
+    margin-top: 0.5rem;
+    border-radius: 4px;
+    display: none;
+  }
+</style>
+</head>
+<body>
+  <div class="grid">
+    <div class="box">
+      <h2>名字</h2>
+      <input type="text" id="nameInput" placeholder="輸入您的名字">
+    </div>
+    <div class="box">
+      <h2>自我介紹</h2>
+      <textarea id="bioInput" placeholder="輸入自我介紹"></textarea>
+    </div>
+    <div class="box">
+      <h2>大頭貼</h2>
+      <input type="file" id="avatarInput" accept="image/*">
+      <img id="avatarPreview" class="preview-img" alt="大頭貼預覽">
+    </div>
+  </div>
+
+  <script>
+    // 預覽上傳的圖片
+    const avatarInput = document.getElementById('avatarInput');
+    const avatarPreview = document.getElementById('avatarPreview');
+    avatarInput.addEventListener('change', e => {
+      const file = e.target.files[0];
+      if (file) {
+        const url = URL.createObjectURL(file);
+        avatarPreview.src = url;
+        avatarPreview.style.display = 'block';
+      }
+    });
+  </script>
+</body>
+</html>
