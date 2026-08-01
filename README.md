@@ -7,31 +7,18 @@ Markdown
 
 ## ✨ 主要功能 (Features)
 
-* 核心功能 A：詳細說明功能亮點
-* 核心功能 B：說明如何增進效率或解決問題
-* 核心功能 C：支援多平台或自訂設定
+* 核心功能 自我介紹:
+* 可以留下聯絡方式
 
 ---
 
 ## 🛠️ 技術棧 (Tech Stack)
 
-* **Language:** Python 3.10+ / JavaScript / C++
-* **Framework:** React / Node.js / Flask
-* **Database:** SQLite / PostgreSQL
+* **Language:** html/gemini/claude
 
 ---
 
 ## 🚀 快速開始 (Getting Started)
 
 ### 前置需求 (Prerequisites)
-
-請確保環境中已安裝以下工具：
-* Node.js >= 18.0.0
-* Git
-
-### 安裝步驟 (Installation)
-
-1. **複製專案庫 (Clone Repository)**
-   ```bash
-   git clone [https://github.com/your-username/your-repo-name.git](https://github.com/your-username/your-repo-name.git)
-   cd your-repo-name
+你的電腦須能開啟html檔
