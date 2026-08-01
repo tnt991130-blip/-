@@ -142,21 +142,21 @@
             overflow: hidden;
         }
 
-       .danmaku-item {
-        position: absolute;
-        white-space: nowrap;
-        font-size: 16px;
-        font-weight: bold;
-     color: #333; /* 配合淡色背景調整為深色文字 */
-    background-color: #AAAAFF; /* 彈幕背景色設定為 #AAAAFF */
-    padding: 8px 16px;
-    border-radius: 20px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-    animation: danmakuMove 8s linear forwards;
-    pointer-events: auto;
-    cursor: pointer;
-    user-select: none;
-}
+        .danmaku-item {
+            position: absolute;
+            white-space: nowrap;
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+            background-color: #AAAAFF;
+            padding: 8px 16px;
+            border-radius: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            animation: danmakuMove 8s linear forwards;
+            pointer-events: auto; /* 讓使用者可以點擊廣告 */
+            cursor: pointer;
+            user-select: none;
+        }
 
         @keyframes danmakuMove {
             0% {
