@@ -18,7 +18,7 @@
             flex-direction: column;
             align-items: center;
             color: #333;
-            overflow-x: hidden; /* 防止彈幕超出的寬度引發底部捲軸 */
+            overflow-x: hidden;
             position: relative;
         }
 
@@ -74,6 +74,18 @@
             color: #666;
             line-height: 1.6;
             margin-bottom: 0;
+        }
+
+        /* ===== 大頭貼專用 CSS ===== */
+        .avatar-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #007bff;
+            margin: 15px auto;
+            display: block;
+            background-color: #eee;
         }
 
         .contact-form {
@@ -137,7 +149,7 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            pointer-events: none; /* 使彈幕不影響底層點擊操作 */
+            pointer-events: none;
             z-index: 9999;
             overflow: hidden;
         }
@@ -153,7 +165,7 @@
             border-radius: 20px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
             animation: danmakuMove 8s linear forwards;
-            pointer-events: auto; /* 讓使用者可以點擊廣告 */
+            pointer-events: auto;
             cursor: pointer;
             user-select: none;
         }
@@ -204,8 +216,11 @@
         </div>
 
         <div class="grid-item">
-            <h2 contenteditable="true">大頭貼</h2>
-            <p contenteditable="true">請在此放置您的大頭貼照片。</p>
+            <h2>大頭貼</h2>
+            <!-- 預設預覽圖片 (SVG 占位圖) -->
+            <img id="avatarPreview" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'><rect width='100%' height='100%' fill='%23e0e0e0'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' fill='%23888888' font-size='14'>尚未上傳圖片</text></svg>" alt="大頭貼預覽" class="avatar-img">
+            <!-- 檔案選擇按鈕 -->
+            <input type="file" id="avatarInput" accept="image/*">
         </div>
     </div>
 
@@ -273,16 +288,13 @@
             danmaku.className = 'danmaku-item';
             danmaku.innerText = adText;
 
-            // 隨機垂直位置 (距離頂部 5% ~ 80% 避開頁尾)
             const randomTop = Math.floor(Math.random() * 75) + 5;
             danmaku.style.top = `${randomTop}%`;
 
-            // 點擊彈幕事件
             danmaku.addEventListener('click', () => {
                 alert(`您點擊了廣告：${adText}`);
             });
 
-            // 動畫結束後自動移除 DOM 元素
             danmaku.addEventListener('animationend', () => {
                 danmaku.remove();
             });
@@ -290,12 +302,23 @@
             container.appendChild(danmaku);
         }
 
-        // 每 2.5 秒發送一條彈幕
         setInterval(createDanmaku, 2500);
-
-        // 頁面載入時先立刻產生一條
         createDanmaku();
-    </script>
 
+        // 大頭貼上傳預覽邏輯 (務必放在 <script> 標籤內)
+        const avatarInput = document.getElementById('avatarInput');
+        const avatarPreview = document.getElementById('avatarPreview');
+
+        avatarInput.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    avatarPreview.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
 </body>
 </html>
