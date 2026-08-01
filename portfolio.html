@@ -20,12 +20,14 @@
             color: #333;
             overflow-x: hidden;
             position: relative;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         h1 {
             text-align: center;
             color: #222;
             margin-bottom: 30px;
+            transition: color 0.3s ease;
         }
 
         h2.section-title {
@@ -33,6 +35,7 @@
             margin-bottom: 20px;
             color: #444;
             text-align: center;
+            transition: color 0.3s ease;
         }
 
         .grid-container {
@@ -56,7 +59,7 @@
             padding: 30px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
             text-align: center;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease, color 0.3s ease;
         }
 
         .grid-item:hover {
@@ -68,12 +71,14 @@
             margin-top: 0;
             color: #333;
             font-size: 20px;
+            transition: color 0.3s ease;
         }
 
         .grid-item p {
             color: #666;
             line-height: 1.6;
             margin-bottom: 0;
+            transition: color 0.3s ease;
         }
 
         /* ===== 正方形大頭貼 CSS ===== */
@@ -88,11 +93,11 @@
             background-color: #eee;
         }
 
-        /* ===== 作品圖片 CSS (要在這裡改尺寸) ===== */
+        /* ===== 作品圖片 CSS ===== */
         .project-img {
             width: 100%;          /* 寬度自動填滿卡片 */
-            height: 180px;        /* 👈【可修改】修改這個數字可以改變圖片高度（如 200px） */
-            object-fit: cover;    /* 👈 cover: 滿版不變形裁切 | contain: 顯示完整圖片不裁切 */
+            height: 180px;        /* 修改這個數字可以改變圖片高度 */
+            object-fit: cover;    /* cover: 滿版不變形裁切 | contain: 顯示完整圖片不裁切 */
             border-radius: 8px;   /* 圖片圓角 */
             margin: 12px 0;
             background-color: #eee;
@@ -113,6 +118,7 @@
             background: #fff;
             border-radius: 12px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
         }
 
         .form-group {
@@ -124,6 +130,7 @@
             margin-bottom: 8px;
             font-weight: bold;
             color: #555;
+            transition: color 0.3s ease;
         }
 
         .form-group input,
@@ -134,7 +141,7 @@
             border-radius: 6px;
             font-size: 15px;
             outline: none;
-            transition: border-color 0.2s ease;
+            transition: border-color 0.2s ease, background-color 0.3s ease, color 0.3s ease;
         }
 
         .form-group input:focus,
@@ -196,6 +203,70 @@
             }
         }
 
+        /* ===== 切換黑/白模式按鈕與深色主題樣式 ===== */
+        .theme-toggle-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            background-color: #333;
+            color: #fff;
+            font-size: 22px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+            z-index: 10000; /* 高於彈幕確保永遠能點擊 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s ease, background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .theme-toggle-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* 深色模式 (.dark-mode) 的樣式定義 */
+        body.dark-mode {
+            background-color: #121212;
+            color: #f0f0f0;
+        }
+
+        body.dark-mode h1,
+        body.dark-mode h2.section-title {
+            color: #ffffff;
+        }
+
+        body.dark-mode .grid-item,
+        body.dark-mode .contact-form {
+            background-color: #1e1e1e;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        body.dark-mode .grid-item h2 {
+            color: #ffffff;
+        }
+
+        body.dark-mode .grid-item p,
+        body.dark-mode .form-group label {
+            color: #bbbbbb;
+        }
+
+        body.dark-mode .form-group input,
+        body.dark-mode .form-group textarea,
+        body.dark-mode .project-input {
+            background-color: #2a2a2a;
+            color: #ffffff;
+            border-color: #444;
+        }
+
+        body.dark-mode .theme-toggle-btn {
+            background-color: #f5f5f5;
+            color: #121212;
+        }
+
         @media (max-width: 768px) {
             .grid-3-col {
                 grid-template-columns: repeat(2, 1fr);
@@ -219,6 +290,9 @@
     </style>
 </head>
 <body>
+
+    <!-- 黑/白模式切換圓形按鈕 -->
+    <button id="themeToggleBtn" class="theme-toggle-btn" title="切換黑/白模式">🌙</button>
 
     <!-- 彈幕容器 -->
     <div class="danmaku-container" id="danmakuContainer"></div>
@@ -289,6 +363,17 @@
     </form>
 
     <script>
+        // 黑/白主題切換邏輯
+        const themeToggleBtn = document.getElementById('themeToggleBtn');
+        themeToggleBtn.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            if (document.body.classList.contains('dark-mode')) {
+                themeToggleBtn.innerText = '☀️';
+            } else {
+                themeToggleBtn.innerText = '🌙';
+            }
+        });
+
         // 表單送出事件
         const contactForm = document.querySelector('.contact-form');
         contactForm.addEventListener('submit', function(event) {
@@ -353,7 +438,6 @@
             input.addEventListener('change', function(event) {
                 const file = event.target.files[0];
                 if (file) {
-                    // 找到跟按鈕在同一個作品卡片裡的 <img> 標籤
                     const img = this.parentElement.querySelector('.project-img');
                     const reader = new FileReader();
                     reader.onload = function(e) {
