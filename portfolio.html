@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>個人作品集</title>
     <style>
-        /* 全域樣式修正 */
         * {
             box-sizing: border-box;
         }
@@ -19,6 +18,8 @@
             flex-direction: column;
             align-items: center;
             color: #333;
+            overflow-x: hidden; /* 防止彈幕超出的寬度引發底部捲軸 */
+            position: relative;
         }
 
         h1 {
@@ -34,7 +35,6 @@
             text-align: center;
         }
 
-        /* 網格系統優化 */
         .grid-container {
             display: grid;
             gap: 25px;
@@ -42,12 +42,10 @@
             max-width: 900px;
         }
 
-        /* 雙欄網格（個人簡介） */
         .grid-2-col {
             grid-template-columns: repeat(2, 1fr);
         }
 
-        /* 三欄網格（作品區） */
         .grid-3-col {
             grid-template-columns: repeat(3, 1fr);
         }
@@ -78,7 +76,6 @@
             margin-bottom: 0;
         }
 
-        /* 表單樣式重構 */
         .contact-form {
             width: 100%;
             max-width: 600px;
@@ -133,7 +130,43 @@
             background-color: #0056b3;
         }
 
-        /* 響應式斷點 (RWD) */
+        /* ===== 彈幕廣告樣式與動畫 ===== */
+        .danmaku-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none; /* 使彈幕不影響底層點擊操作 */
+            z-index: 9999;
+            overflow: hidden;
+        }
+
+       .danmaku-item {
+        position: absolute;
+        white-space: nowrap;
+        font-size: 16px;
+        font-weight: bold;
+     color: #333; /* 配合淡色背景調整為深色文字 */
+    background-color: #AAAAFF; /* 彈幕背景色設定為 #AAAAFF */
+    padding: 8px 16px;
+    border-radius: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    animation: danmakuMove 8s linear forwards;
+    pointer-events: auto;
+    cursor: pointer;
+    user-select: none;
+}
+
+        @keyframes danmakuMove {
+            0% {
+                transform: translateX(100vw);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
         @media (max-width: 768px) {
             .grid-3-col {
                 grid-template-columns: repeat(2, 1fr);
@@ -157,6 +190,9 @@
     </style>
 </head>
 <body>
+
+    <!-- 彈幕容器 -->
+    <div class="danmaku-container" id="danmakuContainer"></div>
 
     <h1>個人作品集</h1>
 
@@ -210,22 +246,56 @@
 
         <button type="submit" class="submit-btn">提交</button>
     </form>
-<script>
-    // 取得表單元件
-    const contactForm = document.querySelector('.contact-form');
 
-    // 監聽表單提交事件
-    contactForm.addEventListener('submit', function(event) {
-        // 阻止表單預設的跳頁/重整行為
-        event.preventDefault();
+    <script>
+        // 表單送出事件
+        const contactForm = document.querySelector('.contact-form');
+        contactForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            alert("Thank you for watching");
+            this.reset();
+        });
 
-        // 跳出提示視窗
-        alert("已填寫成功");
+        // 彈幕廣告邏輯
+        const ads = [
+            "🔥 限時優惠！最新前後端課程熱烈報名中！",
+            "✨ 點擊了解如何打造專屬個人作品集網頁！",
+            "🚀 提升 200% 工作效率的開發工具指南！",
+            "🎉 首次訂閱享 8 折優惠，立即領取折扣碼！",
+            "💡 想提升 UI/UX 設計質感？點此觀看教學！"
+        ];
 
-        // （可選）清空表單輸入內容
-        this.reset();
-    });
-</script>
+        const container = document.getElementById('danmakuContainer');
+
+        function createDanmaku() {
+            const adText = ads[Math.floor(Math.random() * ads.length)];
+            const danmaku = document.createElement('div');
+            danmaku.className = 'danmaku-item';
+            danmaku.innerText = adText;
+
+            // 隨機垂直位置 (距離頂部 5% ~ 80% 避開頁尾)
+            const randomTop = Math.floor(Math.random() * 75) + 5;
+            danmaku.style.top = `${randomTop}%`;
+
+            // 點擊彈幕事件
+            danmaku.addEventListener('click', () => {
+                alert(`您點擊了廣告：${adText}`);
+            });
+
+            // 動畫結束後自動移除 DOM 元素
+            danmaku.addEventListener('animationend', () => {
+                danmaku.remove();
+            });
+
+            container.appendChild(danmaku);
+        }
+
+        // 每 2.5 秒發送一條彈幕
+        setInterval(createDanmaku, 2500);
+
+        // 頁面載入時先立刻產生一條
+        createDanmaku();
+    </script>
 
 </body>
 </html>
