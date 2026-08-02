@@ -1,4 +1,3 @@
-Markdown
 # 第七組自我介紹 (Project Title)
 
 > 一句話簡短介紹這個專案的核心功能或目的。
