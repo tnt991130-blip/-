@@ -118,6 +118,33 @@ public/
 
 > `vite.config.ts` 已設定 GitHub Pages 專案路徑，不要改成 `/`，否則正式網站的圖片與 JS/CSS 可能無法載入。
 
+## 贊助付款（綠界 + Vercel）
+
+網站前端維持部署在 GitHub Pages；付款簽章與綠界通知則由同一個專案中的 Vercel Functions 處理。正式金鑰不可放進 GitHub、前端程式或 `.env.example`。
+
+1. 在 Vercel 匯入此 GitHub repository，先部署一次，取得固定的 `https://<project>.vercel.app` 網址。
+2. 在 Vercel 專案的 Environment Variables 設定下列值後重新部署：
+
+   ```text
+   SITE_ORIGIN=https://wei20100818.github.io/self-introduction-website
+   API_ORIGIN=https://<project>.vercel.app
+   ECPAY_ENV=stage
+   ECPAY_MERCHANT_ID=<綠界測試或正式特店編號>
+   ECPAY_HASH_KEY=<綠界 HashKey>
+   ECPAY_HASH_IV=<綠界 HashIV>
+   ```
+
+3. 到 GitHub repository 的 **Settings → Secrets and variables → Actions → Variables** 新增：
+
+   ```text
+   VITE_PAYMENT_API_ORIGIN=https://<project>.vercel.app
+   ```
+
+4. 重新執行 GitHub Pages 部署。完成後，贊助區塊會將表單送到 Vercel，再由 Vercel 建立綠界信用卡付款訂單。
+5. 先以 `ECPAY_ENV=stage` 測試付款、回呼與感謝頁。確認綠界正式商店與信用卡付款方式已開通後，將它改為 `production`，並換成正式環境金鑰。
+
+付款完成的最終狀態以 `api/ecpay-callback.js` 驗證過的綠界幕後通知為準；目前會寫入 Vercel log，但不會保存贊助紀錄。若未來要顯示贊助清單、寄送收據或追蹤交易，應再加入資料庫。
+
 ## 授權
 
 本專案為王宥崴的個人作品集網站。
