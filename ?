@@ -406,23 +406,67 @@
     </button>
 </div>
 
-<!-- 表單式導向（最簡單，無需 SDK） -->
-<form id="ecpay-form" action="https://payment-stage.ecpay.com.tw/Cashier/AioCheckOut/V5" method="POST" target="_blank">
-  <!-- 必填參數（請向綠界申請 MerchantID/HashKey/HashIV） -->
-  <input type="hidden" name="MerchantID" value="你的MerchantID">
-  <input type="hidden" name="MerchantTradeNo" id="tradeNo" value="">
-  <input type="hidden" name="MerchantTradeDate" id="tradeDate" value="">
-  <input type="hidden" name="PaymentType" value="aio">
-  <input type="hidden" name="TotalAmount" value="100">
-  <input type="hidden" name="TradeDesc" value="測試付款">
-  <input type="hidden" name="ItemName" value="我的商品#1個">
-  <input type="hidden" name="ReturnURL" value="https://你的網域/payment-return">
-  <input type="hidden" name="ChoosePayment" value="ALL">
-  <input type="hidden" name="EncryptType" value="1">
-  <input type="hidden" name="CheckMacValue" id="checkMacValue" value="">
+<!-- PayPal 快速按鈕 -->
+<div style="text-align:center; margin:30px auto;">
+  <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+    <input type="hidden" name="cmd" value="_donCooked for
 
-  <button type="submit" class="btn-payment">前往付款 (綠界)</button>
-</form>
+> 我只需要按鈕 不一定需要連結
+                                                Thought for
+html
+<!-- PayPal 快速按鈕 -->
+<div style="text-align:center; margin:30px auto;">
+  <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+    <input type="hidden" name="cmd" value="_donations">
+    <input type="hidden" name="business" value="你的PayPal信箱">
+    <input type="hidden" name="item_name"     value="您的
+    <input type="hidden" name="currency_code" value="TWD"
+    <input type="hidden" name="amount" value="300">
+    <input type="submit" value="贊助 NT$300" style="background:#ff7b5d;color:#fff;border:none;pad
+ding:14px 3ze:1rem;font
+</div>
+
+<style>
+/* 按鈕擴充款式 */
+.paypal-donate-btn {
+  background: linear-gradient(135deg, #0070ba, #003087);
+  color: #fff;
+  border: none;
+  padding: 14px 30px;
+  font-size: 1rem;
+  font-weig
+  border-ra
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-ite
+}
+.paypal-donate-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 112, 186, 0.4);
+}
+</style>
+
+<!-- 或是用 PayPal 標準按鈕（較簡單） -->
+<script src="https://www.paypal.com/sdk/js?client-id=你的ClientID&currency=TWD"></script>
+<div id="pa
+<script>
+  paypal.Buttons({
+    createOrder: function() {
+      retur
+        purchase_units: [{
+          amount: { value: '10', currency_code: 'TWD' }
+        }]
+      });
+    },
+    onApprove: function(data) {
+      return paypal.order.capture(data.orderID).then(function(details) {
+        alert('感謝您的贊！');
+      });
+    }
+  }).render('#paypal-button-container');
+</script>
 
 <script>
 // 產生訂單編號、時間、CheckMacValue（需用 HashKey/HashIV 簽章）
