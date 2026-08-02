@@ -268,55 +268,45 @@
             color: #121212;
         }
 
-        /* =========================================
-           響應式設計 (手機/平板版優化區塊)
-           ========================================= */
-        
-        /* 平板版調整 */
         @media (max-width: 768px) {
             .grid-3-col {
                 grid-template-columns: repeat(2, 1fr);
             }
         }
 
-        /* 手機版調整 */
         @media (max-width: 576px) {
             .grid-2-col,
             .grid-3-col {
-                grid-template-columns: 1fr; /* 強制變為單排 */
+                grid-template-columns: 1fr;
             }
             
             body {
-                padding: 20px 15px; /* 縮小頁面外距 */
-            }
-
-            h1 {
-                font-size: 24px; /* 稍微縮小主標題 */
-                margin-bottom: 20px;
-            }
-
-            .grid-item {
-                padding: 20px 15px; /* 縮小卡片內距，留給內容更多空間 */
+                padding: 20px 15px;
             }
 
             .contact-form {
-                padding: 25px 15px;
+                padding: 20px;
             }
+        }
 
-            /* 手機版的深色切換按鈕縮小，避免擋住過多畫面 */
-            .theme-toggle-btn {
-                width: 40px;
-                height: 40px;
-                font-size: 18px;
-                top: 15px;
-                right: 15px;
-            }
+        /* ===== 客服表單連結樣式 ===== */
+        .support-section {
+            margin-top: 100px; /* 約為 10cm 的間距 */
+            text-align: center;
+            padding-bottom: 50px;
+        }
 
-            /* 彈幕在手機版稍微變小 */
-            .danmaku-item {
-                font-size: 14px;
-                padding: 6px 12px;
-            }
+        .support-link {
+            color: #007bff;
+            text-decoration: underline;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .support-link:hover {
+            color: #0056b3;
         }
     </style>
 </head>
@@ -350,7 +340,7 @@
         <!-- 作品卡片 1 -->
         <div class="grid-item">
             <h2 contenteditable="true">作品標題 1</h2>
-            <img class="project-img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='180' viewBox='0 0 300 180'><rect width='100%' height='100%' fill='%23e0e0e0'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' fill='%23888888' font-size='14'>點擊上傳作品圖</text></svg>" alt="作品預覽">
+            <img class="project-img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='180' viewBox='0 0 300 180'><rect width='100%' height='100%' fill='%23e0e0e0'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' fill='%23888888' font-size='14'>點擊下方按鈕上傳作品圖</text></svg>" alt="作品預覽">
             <input type="file" class="project-input" accept="image/*">
             <p contenteditable="true">請在此輸入作品內容 1。</p>
         </div>
@@ -358,7 +348,7 @@
         <!-- 作品卡片 2 -->
         <div class="grid-item">
             <h2 contenteditable="true">作品標題 2</h2>
-            <img class="project-img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='180' viewBox='0 0 300 180'><rect width='100%' height='100%' fill='%23e0e0e0'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' fill='%23888888' font-size='14'>點擊上傳作品圖</text></svg>" alt="作品預覽">
+            <img class="project-img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='180' viewBox='0 0 300 180'><rect width='100%' height='100%' fill='%23e0e0e0'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' fill='%23888888' font-size='14'>點擊下方按鈕上傳作品圖</text></svg>" alt="作品預覽">
             <input type="file" class="project-input" accept="image/*">
             <p contenteditable="true">請在此輸入作品內容 2。</p>
         </div>
@@ -366,7 +356,7 @@
         <!-- 作品卡片 3 -->
         <div class="grid-item">
             <h2 contenteditable="true">作品標題 3</h2>
-            <img class="project-img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='180' viewBox='0 0 300 180'><rect width='100%' height='100%' fill='%23e0e0e0'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' fill='%23888888' font-size='14'>點擊上傳作品圖</text></svg>" alt="作品預覽">
+            <img class="project-img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='180' viewBox='0 0 300 180'><rect width='100%' height='100%' fill='%23e0e0e0'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' fill='%23888888' font-size='14'>點擊下方按鈕上傳作品圖</text></svg>" alt="作品預覽">
             <input type="file" class="project-input" accept="image/*">
             <p contenteditable="true">請在此輸入作品內容 3。</p>
         </div>
@@ -393,6 +383,10 @@
         <button type="submit" class="submit-btn">提交</button>
     </form>
 
+    <!-- 客服表單連結 -->
+    <div class="support-section">
+       <a href="https://www.nycu.edu.tw/nycu/ch/app/artwebsite/view?module=artwebsite&id=35074&serno=8e8b1820-d4c8-4733-8714-001e0e3316fa" class="support-link" target="_blank">有問題，聯絡我們!</a>
+</div>
     <script>
         // 黑/白主題切換邏輯
         const themeToggleBtn = document.getElementById('themeToggleBtn');
