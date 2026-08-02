@@ -69,8 +69,8 @@ function App() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: motionDuration.normal, ease: motionEase }}
       >
-        <HomeSection profile={profile} copy={copy.hero} theme={theme} />
-        <AboutSection copy={copy.about} />
+        <AboutSection copy={copy.about} sectionId="home" />
+        <HomeSection profile={profile} copy={copy.hero} sectionId="about" theme={theme} />
         <ProjectsSection copy={copy.projects} commonCopy={copy.common} />
         <ContactSection copy={copy.contact} validationCopy={copy.validation} recipient={profile.contactEmail} />
       </motion.main>

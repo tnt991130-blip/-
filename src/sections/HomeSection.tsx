@@ -12,14 +12,15 @@ import homeStyles from './HomeSection.module.css'
 interface HomeSectionProps {
   profile: Profile
   copy: Translation['hero']
+  sectionId: 'home' | 'about'
   theme: 'light' | 'dark'
 }
 
-export function HomeSection({ profile, copy, theme }: HomeSectionProps) {
+export function HomeSection({ profile, copy, sectionId, theme }: HomeSectionProps) {
   const reduceMotion = useReducedMotion()
 
   return (
-    <section className={`${styles.section} ${homeStyles.home}`} id="home" aria-labelledby="home-title">
+    <section className={`${styles.section} ${homeStyles.home}`} id={sectionId} aria-labelledby="home-title">
       <div className={homeStyles.ambient} aria-hidden="true"><AmbientCanvas theme={theme} /></div>
       <motion.div
         className={homeStyles.copy}

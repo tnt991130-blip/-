@@ -53,6 +53,9 @@ describe('portfolio interactions', () => {
   it('renders complete, secure, keyboard-focusable project links without exposing the recipient email', () => {
     render(<App />)
 
+    expect(document.querySelector('#home #about-title')).toBeInTheDocument()
+    expect(document.querySelector('#about #home-title')).toBeInTheDocument()
+
     for (const project of profile.projects) {
       const link = screen.getByRole('link', { name: `${project.title}：瀏覽網站` })
       expect(link).toHaveAttribute('href', project.url)
