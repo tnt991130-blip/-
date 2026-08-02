@@ -405,6 +405,35 @@
         💳 自訂金額付款 / 贊助我們
     </button>
 </div>
+
+<!-- 表單式導向（最簡單，無需 SDK） -->
+<form id="ecpay-form" action="https://payment-stage.ecpay.com.tw/Cashier/AioCheckOut/V5" method="POST" target="_blank">
+  <!-- 必填參數（請向綠界申請 MerchantID/HashKey/HashIV） -->
+  <input type="hidden" name="MerchantID" value="你的MerchantID">
+  <input type="hidden" name="MerchantTradeNo" id="tradeNo" value="">
+  <input type="hidden" name="MerchantTradeDate" id="tradeDate" value="">
+  <input type="hidden" name="PaymentType" value="aio">
+  <input type="hidden" name="TotalAmount" value="100">
+  <input type="hidden" name="TradeDesc" value="測試付款">
+  <input type="hidden" name="ItemName" value="我的商品#1個">
+  <input type="hidden" name="ReturnURL" value="https://你的網域/payment-return">
+  <input type="hidden" name="ChoosePayment" value="ALL">
+  <input type="hidden" name="EncryptType" value="1">
+  <input type="hidden" name="CheckMacValue" id="checkMacValue" value="">
+
+  <button type="submit" class="btn-payment">前往付款 (綠界)</button>
+</form>
+
+<script>
+// 產生訂單編號、時間、CheckMacValue（需用 HashKey/HashIV 簽章）
+// ⚠️ CheckMacValue「不能」在前端產生（會暴露 HashKey/HashIV）
+// 必須由後端產生並回傳，或用「綠界 SDK」在後端簽章後渲染表單
+function generateTradeNo() {
+  return 'ORDER_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5);
+}
+document.getElementById('tradeNo').value = generateTradeNo();
+document.getElementById('tradeDate').value = new Date().toLocaleString('zh-TW', { hour12: false }).replace(/\//g, '/');
+</script>
         // 表單送出事件
         const contactForm = document.querySelector('.contact-form');
         contactForm.addEventListener('submit', function(event) {
