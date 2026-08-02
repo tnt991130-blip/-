@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://wei20100818.github.io/self-introduction-website/sitemap.xml
