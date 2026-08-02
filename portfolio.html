@@ -289,9 +289,39 @@
             }
         }
 
+        /* ===== 付款按鈕區塊與樣式 ===== */
+        .payment-section {
+            margin-top: 40px;
+            text-align: center;
+            width: 100%;
+        }
+
+        .payment-btn {
+            padding: 14px 40px;
+            background-color: #28a745; 
+            color: white;
+            border: none;
+            border-radius: 30px; 
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .payment-btn:hover {
+            background-color: #218838;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(40, 167, 69, 0.4);
+        }
+
+        body.dark-mode .payment-btn {
+            box-shadow: 0 4px 12px rgba(40, 167, 69, 0.2);
+        }
+
         /* ===== 客服表單連結樣式 ===== */
         .support-section {
-            margin-top: 100px; /* 約為 10cm 的間距 */
+            margin-top: 50px; /* 配合新增付款按鈕，縮小上邊距 */
             text-align: center;
             padding-bottom: 50px;
         }
@@ -383,10 +413,16 @@
         <button type="submit" class="submit-btn">提交</button>
     </form>
 
+    <!-- ===== 新增的付款按鈕區塊 ===== -->
+    <div class="payment-section">
+        <button class="payment-btn" onclick="alert('準備導向付款頁面...')">💳 點此付款</button>
+    </div>
+
     <!-- 客服表單連結 -->
     <div class="support-section">
        <a href="https://www.nycu.edu.tw/nycu/ch/app/artwebsite/view?module=artwebsite&id=35074&serno=8e8b1820-d4c8-4733-8714-001e0e3316fa" class="support-link" target="_blank">有問題，聯絡我們!</a>
-</div>
+    </div>
+
     <script>
         // 黑/白主題切換邏輯
         const themeToggleBtn = document.getElementById('themeToggleBtn');
