@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>我的個人網站編輯器</title>
+<style>
+  .grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 450px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background: #f9f9f9;
+  }
+
+  /* 1. 將卡片設為 relative 以作為懸停圖片定位基準 */
+  .box {
+    position: relative; 
+    padding: 1rem;
+    border: 1px solid #aaa;
+    border-radius: 6px;
+    background: #fff;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .box:hover {
+    border-color: #4A90E2;
+    box-shadow: 0 2px 8px rgba(74, 144, 226, 0.15);
+  }
+
+  .box h2 {
+    margin-top: 0;
+    font-size: 1.1rem;
+  }
+
+  .box input,
+  .box textarea {
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  .box textarea {
+    min-height: 80px;
+    resize: vertical;
+  }
+
+  .preview-img {
+    max-width: 100%;
+    max-height: 200px;
+    margin-top: 0.5rem;
+    border-radius: 4px;
+    display: none;
+  }
+
+  /* 2. 懸停浮現圖片的樣式 */
+  .hover-image {
+    position: absolute;
+    bottom: 105%;              /* 顯示在區塊上方 */
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    width: 160px;              /* 控制懸停圖片寬度 */
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
+    
+    /* 隱藏與動態效果 */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+    pointer-events: none;      /* 避免阻擋滑鼠 */
+    z-index: 10;
+  }
+
+  /* 滑鼠移入卡片時浮現圖片 */
+  .box:hover .hover-image {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+  }
+</style>
+</head>
+<body>
+
+  <div class="grid">
+    <!-- 1. 名字區塊 (懸停浮現 IMG_6786.webp) -->
+    <div class="box">
+      <h2>名字</h2>
+      <input type="text" id="nameInput" placeholder="輸入您的名字">
+      <img src="images/IMG_6786.webp" alt="大頭貼示意圖" class="hover-image">
+    </div>
+
+    <!-- 2. 自我介紹區塊 (懸停浮現 IMG_6787.webp) -->
+    <div class="box">
+      <h2>自我介紹</h2>
+      <textarea id="bioInput" placeholder="輸入自我介紹"></textarea>
+      <img src="images/IMG_6787.webp" alt="個人資料圖示" class="hover-image">
+    </div>
+
+    <!-- 3. 大頭貼上傳區塊 (懸停浮現 IMG_6788.webp) -->
+    <div class="box">
+      <h2>大頭貼</h2>
+      <input type="file" id="avatarInput" accept="image/*">
+      <img id="avatarPreview" class="preview-img" alt="大頭貼預覽">
+      <img src="images/IMG_6788.webp" alt="作品區圖示" class="hover-image">
+    </div>
+
+    <!-- 4. 聯絡資訊區塊 (懸停浮現 IMG_6790.webp) -->
+    <div class="box">
+      <h2>聯絡方式</h2>
+      <input type="text" id="contactInput" placeholder="輸入 Email 或社群連結">
+      <img src="images/IMG_6790.webp" alt="聯絡資訊圖示" class="hover-image">
+    </div>
+  </div>
+
+  <script>
+    // 預覽上傳的圖片
+    const avatarInput = document.getElementById('avatarInput');
+    const avatarPreview = document.getElementById('avatarPreview');
+    avatarInput.addEventListener('change', e => {
+      const file = e.target.files[0];
+      if (file) {
+        const url = URL.createObjectURL(file);
+        avatarPreview.src = url;
+        avatarPreview.style.display = 'block';
+      }
+    });
+  </script>
+</body>
+</html>
